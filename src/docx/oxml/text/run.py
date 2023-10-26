@@ -2,10 +2,12 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Callable, Iterator, List
+from typing import TYPE_CHECKING, Callable, Iterator, List, cast
 
 from docx.oxml.drawing import CT_Drawing
+from docx.oxml.footnotes import CT_FNR
 from docx.oxml.ns import qn
+from docx.oxml.parser import OxmlElement
 from docx.oxml.simpletypes import ST_BrClear, ST_BrType
 from docx.oxml.text.font import CT_RPr
 from docx.oxml.xmlchemy import BaseOxmlElement, OptionalAttribute, ZeroOrMore, ZeroOrOne
@@ -51,6 +53,15 @@ class CT_R(BaseOxmlElement):
         drawing = self._add_drawing()
         drawing.append(inline_or_anchor)
         return drawing
+
+    def _add_footnote_reference(self, _id: int) -> CT_FNR:
+        rPr = self.get_or_add_rPr()
+        rStyle = rPr.get_or_add_rStyle()
+        rStyle.val = "FootnoteReference"
+        reference = cast(CT_FNR, OxmlElement("w:footnoteReference"))
+        reference._id = _id
+        self.append(reference)
+        return reference
 
     def clear_content(self) -> None:
         """Remove all child elements except a `w:rPr` element if present."""

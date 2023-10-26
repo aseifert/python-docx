@@ -43,6 +43,11 @@ class Paragraph(StoryChild):
             run.style = style
         return run
 
+    def add_footnote(self, text: str):
+        footnotes_part = self.part._footnotes_part.element
+        footnote = self._p.add_fn(text, footnotes_part)
+        return footnote
+
     @property
     def alignment(self) -> WD_PARAGRAPH_ALIGNMENT | None:
         """A member of the :ref:`WdParagraphAlignment` enumeration specifying the

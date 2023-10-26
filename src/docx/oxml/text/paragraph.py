@@ -6,6 +6,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Callable, List, cast
 
+from docx.oxml.footnotes import CT_FNR
 from docx.oxml.parser import OxmlElement
 from docx.oxml.xmlchemy import BaseOxmlElement, ZeroOrMore, ZeroOrOne
 
@@ -29,6 +30,10 @@ class CT_P(BaseOxmlElement):
     pPr: CT_PPr | None = ZeroOrOne("w:pPr")  # pyright: ignore[reportGeneralTypeIssues]
     hyperlink = ZeroOrMore("w:hyperlink")
     r = ZeroOrMore("w:r")
+
+    def _add_footnote_reference(self, _id: int) -> CT_FNR:
+        _r = self.add_r()
+        return _r._add_footnote_reference(_id)
 
     def add_p_before(self) -> CT_P:
         """Return a new `<w:p>` element inserted directly prior to this one."""
