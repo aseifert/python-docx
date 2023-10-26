@@ -19,7 +19,7 @@
     xmlns:wne="http://schemas.microsoft.com/office/word/2006/wordml"
     xmlns:wps="http://schemas.microsoft.com/office/word/2010/wordprocessingShape" mc:Ignorable="w14 w15 w16se wp14">
     <w:footnote w:type="separator" w:id="-1">
-        <w:p w:rsidR="00DF20CE" w:rsidRDefault="00DF20CE" w:rsidP="009A67E1">
+        <w:p>
             <w:pPr>
                 <w:spacing w:after="0" w:line="240" w:lineRule="auto"/>
             </w:pPr>
@@ -29,7 +29,7 @@
         </w:p>
     </w:footnote>
     <w:footnote w:type="continuationSeparator" w:id="0">
-        <w:p w:rsidR="00DF20CE" w:rsidRDefault="00DF20CE" w:rsidP="009A67E1">
+        <w:p>
             <w:pPr>
                 <w:spacing w:after="0" w:line="240" w:lineRule="auto"/>
             </w:pPr>
