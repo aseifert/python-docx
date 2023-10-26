@@ -237,3 +237,7 @@ register_element_cls("w:spacing", CT_Spacing)
 register_element_cls("w:tab", CT_TabStop)
 register_element_cls("w:tabs", CT_TabStops)
 register_element_cls("w:widowControl", CT_OnOff)
+
+from docx.oxml.footnotes import CT_FNR
+
+register_element_cls("w:footnoteReference", CT_FNR)

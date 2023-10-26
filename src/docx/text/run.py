@@ -136,6 +136,11 @@ class Run(StoryChild):
         return Font(self._element)
 
     @property
+    def is_footnote_reference(self) -> bool:
+        """`True` if this run is a footnote reference, `False` otherwise."""
+        return self._r.footnote_id is not None
+
+    @property
     def italic(self) -> bool | None:
         """Read/write tri-state value.
 

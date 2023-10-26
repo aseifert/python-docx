@@ -59,6 +59,11 @@ class CT_R(BaseOxmlElement):
             self.remove(e)
 
     @property
+    def footnote_id(self):
+        _id = self.xpath("./w:footnoteReference/@w:id")
+        return int(_id[0]) if len(_id) == 1 else None
+
+    @property
     def inner_content_items(self) -> List[str | CT_Drawing | CT_LastRenderedPageBreak]:
         """Text of run, possibly punctuated by `w:lastRenderedPageBreak` elements."""
         from docx.oxml.text.pagebreak import CT_LastRenderedPageBreak
