@@ -7,6 +7,7 @@ from typing import TYPE_CHECKING, cast
 from docx.document import Document
 from docx.enum.style import WD_STYLE_TYPE
 from docx.opc.constants import RELATIONSHIP_TYPE as RT
+from docx.parts.footnotes import FootnotesPart
 from docx.parts.hdrftr import FooterPart, HeaderPart
 from docx.parts.numbering import NumberingPart
 from docx.parts.settings import SettingsPart
@@ -58,6 +59,20 @@ class DocumentPart(StoryPart):
     def footer_part(self, rId: str):
         """Return |FooterPart| related by `rId`."""
         return self.related_parts[rId]
+
+    @property
+    def _footnotes_part(self):
+        """A |FootnotesPart| object providing access to the document-level footnotes for
+        this document.
+
+        Creates a default footnotes part if one is not present.
+        """
+        try:
+            return self.part_related_by(RT.FOOTNOTES)
+        except KeyError:
+            footnotes_part = FootnotesPart.default(self)
+            self.relate_to(footnotes_part, RT.FOOTNOTES)
+            return footnotes_part
 
     def get_style(self, style_id: str | None, style_type: WD_STYLE_TYPE) -> BaseStyle:
         """Return the style in this document matching `style_id`.
